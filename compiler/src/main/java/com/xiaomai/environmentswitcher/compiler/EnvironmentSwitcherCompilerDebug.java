@@ -213,6 +213,29 @@ public class EnvironmentSwitcherCompilerDebug extends AbstractProcessor {
                     .build();
             environmentSwitcherClassBuilder.addMethod(setXXEnvironmentMethod);
 
+
+            MethodSpec toggleXXEnvironmentMethod =
+                    MethodSpec.methodBuilder(String.format(METHOD_NAME_TOGGLE_XX_ENVIRONMENT,
+                            moduleName))
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                    .returns(void.class)
+                    .addParameter(CONTEXT_TYPE_NAME, VAR_CONTEXT)
+                    .addParameter(EnvironmentBean.class, VAR_PARAMETER_NEW_ENVIRONMENT)
+                    .addStatement(String.format(
+                            "%s.getSharedPreferences(%s.getPackageName() + \".%s\", %s).edit()\n" +
+                                    ".putString(\"%s%s%s\", %s.getUrl())\n" +
+                                    ".putString(\"%s%s%s\", %s.getName())\n" +
+                                    ".putString(\"%s%s%s\", %s.getAlias())\n" +
+                                    ".commit()",
+                            VAR_CONTEXT, VAR_CONTEXT, Constants.ENVIRONMENT_SWITCHER_FILE_NAME.toLowerCase(), MODE_PRIVATE,
+                            moduleLowerCaseName, ENVIRONMENT, VAR_ENVIRONMENT_URL_SUFFIX, VAR_PARAMETER_NEW_ENVIRONMENT,
+                            moduleLowerCaseName, ENVIRONMENT, VAR_ENVIRONMENT_NAME_SUFFIX, VAR_PARAMETER_NEW_ENVIRONMENT,
+                            moduleLowerCaseName, ENVIRONMENT, VAR_ENVIRONMENT_ALIAS_SUFFIX, VAR_PARAMETER_NEW_ENVIRONMENT
+                    )).addCode(String.format("%s = %s;\n",String.format(VAR_CURRENT_XX_ENVIRONMENT,
+                            moduleName), VAR_PARAMETER_NEW_ENVIRONMENT))
+                    .build();
+            environmentSwitcherClassBuilder.addMethod(toggleXXEnvironmentMethod);
+
             FieldSpec.Builder defaultXXEnvironmentFiledBuilder = FieldSpec
                     .builder(EnvironmentBean.class, String.format("%s%s%s", VAR_DEFAULT_ENVIRONMENT_PREFIX, moduleUpperCaseName, VAR_DEFAULT_ENVIRONMENT_SUFFIX),
                     Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL);
@@ -234,7 +257,6 @@ public class EnvironmentSwitcherCompilerDebug extends AbstractProcessor {
                         moduleUpperCaseName, environmentName, environmentUpperCaseName, url, alias);
 
                 environmentSwitcherClassBuilder.addField(environmentField);
-
                 staticCodeBlockBuilder
                         .addStatement(String.format("%s%s.getEnvironments().add(%s)", VAR_MODULE_PREFIX, moduleUpperCaseName, String.format("%s_%s%s", moduleUpperCaseName, environmentUpperCaseName, VAR_DEFAULT_ENVIRONMENT_SUFFIX)));
             }
@@ -257,6 +279,7 @@ public class EnvironmentSwitcherCompilerDebug extends AbstractProcessor {
         }
         return true;
     }
+
 
     protected FieldSpec generateEnvironmentField(Environment environmentAnnotation,
                                                  FieldSpec.Builder defaultXXEnvironmentFiledBuilder,
@@ -293,6 +316,7 @@ public class EnvironmentSwitcherCompilerDebug extends AbstractProcessor {
     public static final String METHOD_NAME_GET_XX_ENVIRONMENT = "get%sEnvironment";
     public static final String METHOD_NAME_GET_XX_ENVIRONMENT_BEAN = "get%sEnvironmentBean";
     public static final String METHOD_NAME_SET_XX_ENVIRONMENT = "set%sEnvironment";
+    public static final String METHOD_NAME_TOGGLE_XX_ENVIRONMENT = "toggle%sEnvironment";
     public static final String METHOD_NAME_ADD_ON_ENVIRONMENT_CHANGE_LISTENER = "addOnEnvironmentChangeListener";
     public static final String METHOD_NAME_REMOVE_ON_ENVIRONMENT_CHANGE_LISTENER = "removeOnEnvironmentChangeListener";
     public static final String METHOD_NAME_REMOVE_ALL_ON_ENVIRONMENT_CHANGE_LISTENER = "removeAllOnEnvironmentChangeListener";

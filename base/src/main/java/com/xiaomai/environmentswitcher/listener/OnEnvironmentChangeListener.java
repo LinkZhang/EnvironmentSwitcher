@@ -25,5 +25,6 @@ public interface OnEnvironmentChangeListener {
      *                       <p>
      *                       The latest environment for this module
      */
-    void onEnvironmentChanged(ModuleBean module, EnvironmentBean oldEnvironment, EnvironmentBean newEnvironment);
+    void onEnvironmentChanged(ModuleBean module, EnvironmentBean oldEnvironment,
+                           EnvironmentBean newEnvironment);
 }

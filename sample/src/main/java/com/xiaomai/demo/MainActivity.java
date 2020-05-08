@@ -1,10 +1,6 @@
 package com.xiaomai.demo;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -16,6 +12,11 @@ import com.xiaomai.environmentswitcher.EnvironmentSwitcher;
 import com.xiaomai.environmentswitcher.bean.EnvironmentBean;
 import com.xiaomai.environmentswitcher.bean.ModuleBean;
 import com.xiaomai.environmentswitcher.listener.OnEnvironmentChangeListener;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 public class MainActivity extends AppCompatActivity implements OnEnvironmentChangeListener{

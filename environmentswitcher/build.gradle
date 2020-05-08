@@ -14,12 +14,11 @@ android {
     compileSdkVersion compile_version
 
     defaultConfig {
-        minSdkVersion 7
+        minSdkVersion 14
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         consumerProguardFiles 'consumer-proguard-rules.pro'
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     packageBuildConfig false
@@ -30,10 +29,7 @@ android {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     api project(':base')
 //    api "$group_id:$artifactId_base:$publishVersion_base"
 }

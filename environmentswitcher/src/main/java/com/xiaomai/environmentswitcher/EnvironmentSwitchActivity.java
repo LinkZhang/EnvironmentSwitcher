@@ -86,6 +86,15 @@ public class EnvironmentSwitchActivity extends Activity {
         }
     }
 
+    void updateCheck(EnvironmentBean environmentBean) {
+        for (EnvironmentBean bean : environmentBeans) {
+            if (bean.getModule().equals(environmentBean.getModule())) {
+                bean.setChecked(bean.equals(environmentBean));
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
     class Adapter extends BaseAdapter {
         @Override
         public int getCount() {
