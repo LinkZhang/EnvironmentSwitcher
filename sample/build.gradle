@@ -39,12 +39,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 //     EnvironmentSwitcher
-    annotationProcessor project(':compiler')
-//    debugAnnotationProcessor "$group_id:$artifactId_compiler:$publishVersion_compiler"
-//    releaseAnnotationProcessor project(':compiler-release')
-//    releaseAnnotationProcessor "$group_id:$artifactId_compiler_release:$publishVersion_compiler_release"
-    implementation project(':environmentswitcher')
-//    implementation "$group_id:$artifactId_environment_switcher:$publishVersion_environment_switcher"
+    debugAnnotationProcessor 'com.github.LinkZhang.EnvironmentSwitcher:compiler:v1.5.5'
+    releaseAnnotationProcessor 'com.github.LinkZhang.EnvironmentSwitcher:compiler-release:v1.5.5'
+    implementation 'com.github.LinkZhang.EnvironmentSwitcher:environmentswitcher:v1.5.5'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
